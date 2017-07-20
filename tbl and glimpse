@@ -1,0 +1,21 @@
+# Both the dplyr and hflights packages are loaded
+
+# Convert the hflights data.frame into a hflights tbl
+hflights <- tbl_df(hflights)
+
+# Display the hflights tbl
+hflights
+
+# Create the object carriers
+carriers <- hflights$UniqueCarrier
+
+# Use lut to change the labels of the CancellationCode column of hflights. Store the recoded vector in a new column Code
+
+# The lookup table
+lut <- c("A" = "carrier", "B" = "weather", "C" = "FFA", "D" = "security", "E" = "not cancelled")
+
+# Add the Code column
+hflights$Code <- lut[hflights$CancellationCode]
+
+# Glimpse at hflights
+glimpse(hflights)
