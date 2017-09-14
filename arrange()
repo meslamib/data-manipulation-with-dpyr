@@ -11,3 +11,12 @@ arrange(dtc, CancellationCode)
 
 # Arrange dtc according to carrier and departure delays
 arrange(dtc, UniqueCarrier, DepDelay)
+
+
+# dplyr and the hflights tbl are available
+
+# Arrange according to carrier and decreasing departure delays
+arrange(hflights, UniqueCarrier, desc(DepDelay))
+
+# Arrange flights by total delay (normal order).
+arrange(hflights, DepDelay + ArrDelay)
