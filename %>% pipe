@@ -1,0 +1,36 @@
+# hflights and dplyr are both loaded and ready to serve you
+
+# Write the 'piped' version of the English sentences.
+hflights %>%
+  mutate(diff = TaxiOut - TaxiIn) %>%
+  filter(!is.na(diff)) %>%
+  summarise(avg = mean(diff))
+  
+  
+  
+  # Chain together mutate(), filter() and summarise()
+hflights %>%
+  mutate(RealTime = ActualElapsedTime + 100, mph = Distance / RealTime * 60) %>%
+  filter(!is.na(mph), mph < 70) %>%
+  summarise(n_less = n(), 
+            n_dest = n_distinct(Dest), 
+            min_dist = min(Distance), 
+            max_dist = max(Distance))
+            
+            
+            # Finish the command with a filter() and summarise() call
+hflights %>%
+  mutate(RealTime = ActualElapsedTime + 100, mph = Distance / RealTime * 60) %>%
+  filter(mph < 105 | Cancelled == 1 | Diverted == 1) %>%
+  summarise(n_non = n(), 
+            n_dest = n_distinct(Dest), 
+            min_dist = min(Distance), 
+            max_dist = max(Distance))
+            
+            
+            # hflights and dplyr are loaded
+
+# Count the number of overnight flights
+hflights %>%
+  filter(!is.na(DepTime), !is.na(ArrTime), DepTime > ArrTime) %>%
+  summarise(num = n())
