@@ -1,0 +1,44 @@
+
+# aggregate functions
+
+   # min(x) - minimum value of vector x.
+   # max(x) - maximum value of vector x.
+   # mean(x) - mean value of vector x.
+   # median(x) - median value of vector x.
+   # quantile(x, p) - pth quantile of vector x.
+   # sd(x) - standard deviation of vector x.
+   # var(x) - variance of vector x.
+   # IQR(x) - Inter Quartile Range (IQR) of vector x.
+   # diff(range(x)) - total range of vector x.
+   # first(x) - The first element of vector x.
+   # last(x) - The last element of vector x.
+   # nth(x, n) - The nth element of vector x.
+   # n() - The number of rows in the data.frame or group of observations that summarise() describes.
+   # n_distinct(x) - The number of unique values in vector x
+   
+# hflights and dplyr are loaded in the workspace
+
+# Print out a summary with variables min_dist and max_dist
+summarise(hflights, min_dist = min(Distance), max_dist = max(Distance))
+
+# Print out a summary with variable max_div
+summarise(filter(hflights, Diverted == 1), max_div = max(Distance))
+
+
+# hflights is available
+
+# Remove rows that have NA ArrDelay: temp1
+temp1 <- filter(hflights, !is.na(ArrDelay))
+
+# Generate summary about ArrDelay column of temp1
+summarise(temp1, 
+          earliest = min(ArrDelay), 
+          average = mean(ArrDelay), 
+          latest = max(ArrDelay), 
+          sd = sd(ArrDelay))
+
+# Keep rows that have no NA TaxiIn and no NA TaxiOut: temp2
+temp2 <- filter(hflights, !is.na(TaxiIn), !is.na(TaxiOut))
+
+# Print the maximum taxiing difference of temp2 with summarise()
+summarise(temp2, max_taxi_diff = max(abs(TaxiIn - TaxiOut)))
